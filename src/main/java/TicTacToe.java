@@ -28,7 +28,7 @@ public class TicTacToe {
 
     public static void showLines(){
         ArrayList<String> lines = ui.getUiLines();
-        System.out.println("Current boared:");
+        System.out.println("Current board:");
         for (String line: lines) {
             System.out.println(line);
         }
