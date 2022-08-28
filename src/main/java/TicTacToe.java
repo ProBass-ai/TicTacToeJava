@@ -47,8 +47,7 @@ public class TicTacToe {
     }
 
 
-    public static void main(String[] args) {
-        new TicTacToe();
+    public void play(){
         System.out.println("Welcome to TicTacToe!!!");
         System.out.println("1. Single or, 2. Multi-player?");
         System.out.println("Select 1 or 2...");
@@ -140,11 +139,14 @@ public class TicTacToe {
 
             }
 
-
-
-
-
         }
+
+    }
+
+
+    public static void main(String[] args) {
+
+        new TicTacToe().play();
 
     }
 }
