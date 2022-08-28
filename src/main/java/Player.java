@@ -12,17 +12,16 @@ public class Player {
 
     }
 
-    public void play(){
-
-    }
 
     public void setPlaySeq(String c){
         gamePlaySeq.add(c);
     }
 
+
     public ArrayList<String> getGamePlaySeq() {
         return gamePlaySeq;
     }
+
 
     public String autoPlay(ArrayList<String> availableSquares){
         // this is a method to be used by computer on single player
@@ -38,7 +37,7 @@ public class Player {
 
     public String getRandom(ArrayList<String> list) {
         Random rand = new Random();
-        return list.get(rand.nextInt(list.size()));
+        return list.get(rand.nextInt(list.size() - 1 + 1));
     }
 
 }

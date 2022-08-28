@@ -10,12 +10,21 @@ public class TicTacToe {
     static Scanner scanner;
     static RunTimeData runTimeData;
     static UI ui;
+    ArrayList<String> stringArrayList;
+
+
+
     public TicTacToe(){
+
         scanner = new Scanner(System.in);
         runTimeData = new RunTimeData();
         ui = new UI();
+        String s = "1-2-3-4-5-6-7-8-9";
+        String[] strings = s.split("-");
+        stringArrayList = new ArrayList<>(List.of(strings));
 
     }
+
 
     public static void showLines(){
         ArrayList<String> lines = ui.getUiLines();
@@ -53,6 +62,7 @@ public class TicTacToe {
         System.out.println("Select 1 or 2...");
         String userIn = scanner.nextLine();
 
+
         if (userIn.equalsIgnoreCase("1")){
             System.out.println("Launching single player...");
             char p1Char = 'X', p2Char = 'O';
@@ -60,7 +70,8 @@ public class TicTacToe {
             Player player2 = new Player(p2Char);
 
             // start game here
-            while (true){
+            while (runTimeData.getOccupiedSquares().size() < 9){
+
                 showLines();
                 List<String> occupiedSquares = runTimeData.getOccupiedSquares();
                 System.out.println("Player1:");
@@ -69,20 +80,38 @@ public class TicTacToe {
 
                 if (!occupiedSquares.contains(userIn)){
                     runTimeData.takeSquare(userIn);
+                    ui.editUILines(userIn, player1.getCharacter());
+                    player1.setPlaySeq(userIn);
+
+                    if (checkSeq(player1.getGamePlaySeq())){
+                        showLines();
+                        System.out.println("Game Over!!!");
+                        System.out.println("Player 1 Wins!!!");
+                        break;
+                    }
                 }
 
-                ui.editUILines(userIn, player1.getCharacter());
-
+                //------------------------------------------------------------------------------------------------------
                 showLines();
-                System.out.println("Player2: ");
-                userIn = scanner.nextLine();
+                System.out.println("Player2:");
+
+                userIn = player1.autoPlay(stringArrayList);
+                System.out.println(userIn);
 
                 if (!occupiedSquares.contains(userIn)){
                     runTimeData.takeSquare(userIn);
+                    ui.editUILines(userIn, player2.getCharacter());
+
+                    player2.setPlaySeq(userIn);
+
+                    if (checkSeq(player2.getGamePlaySeq())){
+                        showLines();
+                        System.out.println("Game Over!!!");
+                        System.out.println("Player 2 Wins!!!");
+                        break;
+                    }
                 }
 
-
-                ui.editUILines(userIn, player1.getCharacter());
 
 
             }
@@ -149,4 +178,5 @@ public class TicTacToe {
         new TicTacToe().play();
 
     }
+
 }
