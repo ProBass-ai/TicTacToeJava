@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TicTacToe {
-    // input syntax 1-o
-    // where '1' is there position of the character and 'O' is there character
+    // input syntax 1
+    // where '1' is there position of the character
     static Scanner scanner;
     static RunTimeData runTimeData;
     static UI ui;
