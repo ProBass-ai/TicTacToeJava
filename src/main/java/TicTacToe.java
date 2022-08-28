@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -31,7 +32,7 @@ public class TicTacToe {
      * @param charSeq The sequence of characters that the player has chosen.
      * @return A boolean value.
      */
-    private boolean checkSeq(@NotNull ArrayList<String> charSeq){
+    private static boolean checkSeq(@NotNull ArrayList<String> charSeq){
 
         if (charSeq.contains("1") && charSeq.contains("2") && charSeq.contains("3")){
             return true;
@@ -55,29 +56,93 @@ public class TicTacToe {
 
         if (userIn.equalsIgnoreCase("1")){
             System.out.println("Launching single player...");
-            char p1Char = 'X', p2Char = '0';
+            char p1Char = 'X', p2Char = 'O';
             Player player1 = new Player(p1Char);
             Player player2 = new Player(p2Char);
-            ArrayList<String> charSeq = new ArrayList<>();
 
             // start game here
             while (true){
                 showLines();
-                System.out.println("Player1: ");
+                List<String> occupiedSquares = runTimeData.getOccupiedSquares();
+                System.out.println("Player1:");
                 userIn = scanner.nextLine();
+
+
+                if (!occupiedSquares.contains(userIn)){
+                    runTimeData.takeSquare(userIn);
+                }
+
+                ui.editUILines(userIn, player1.getCharacter());
+
+                showLines();
+                System.out.println("Player2: ");
+                userIn = scanner.nextLine();
+
+                if (!occupiedSquares.contains(userIn)){
+                    runTimeData.takeSquare(userIn);
+                }
+
+
+                ui.editUILines(userIn, player1.getCharacter());
+
+
             }
+
 
         } else if (userIn.equalsIgnoreCase("2")) {
             System.out.println("Launching multi player...");
-            char p1Char = 'X', p2Char = '0';
+            char p1Char = 'X', p2Char = 'O';
             Player player1 = new Player(p1Char);
             Player player2 = new Player(p2Char);
-            ArrayList<String> charSeq = new ArrayList<>();
 
             // start game here
-//            while (true){
-//                userIn = scanner.nextLine();
-//            }
+            while (runTimeData.getOccupiedSquares().size() < 9){
+
+                showLines();
+                List<String> occupiedSquares = runTimeData.getOccupiedSquares();
+                System.out.println("Player1:");
+                userIn = scanner.nextLine();
+
+
+                if (!occupiedSquares.contains(userIn)){
+                    runTimeData.takeSquare(userIn);
+                    ui.editUILines(userIn, player1.getCharacter());
+                    player1.setPlaySeq(userIn);
+
+                    if (checkSeq(player1.getGamePlaySeq())){
+                        showLines();
+                        System.out.println("Game Over!!!");
+                        System.out.println("Player 1 Wins!!!");
+                        break;
+                    }
+                }
+
+
+
+                //---------------------------------------------------------------
+                showLines();
+                System.out.println("Player2: ");
+                userIn = scanner.nextLine();
+
+                if (!occupiedSquares.contains(userIn)){
+                    runTimeData.takeSquare(userIn);
+                    ui.editUILines(userIn, player2.getCharacter());
+
+                    player2.setPlaySeq(userIn);
+
+                    if (checkSeq(player2.getGamePlaySeq())){
+                        showLines();
+                        System.out.println("Game Over!!!");
+                        System.out.println("Player 2 Wins!!!");
+                        break;
+                    }
+                }
+
+            }
+
+
+
+
 
         }
 
