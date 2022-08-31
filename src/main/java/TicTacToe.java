@@ -57,6 +57,7 @@ public class TicTacToe {
 
 
     public void play(){
+
         System.out.println("Welcome to TicTacToe!!!");
         System.out.println("1. Single or, 2. Multi-player?");
         System.out.println("Select 1 or 2...");
@@ -73,41 +74,60 @@ public class TicTacToe {
             while (runTimeData.getOccupiedSquares().size() < 9){
 
                 showLines();
-                List<String> occupiedSquares = runTimeData.getOccupiedSquares();
                 System.out.println("Player1:");
                 userIn = scanner.nextLine();
 
+                if (runTimeData.ifBlockUnoccupied(ui, userIn)){
+                    System.out.println("Block Taken!");
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player1.getCharacter());
+                    while (runTimeData.ifBlockUnoccupied(ui, userIn)){
+                        showLines();
+
+                        System.out.println("Player1:");
+                        userIn = scanner.nextLine();
+                    }
+
+                } else {
+                    runTimeData.takeSquare(ui, userIn, player1.getCharacter());
+
                     player1.setPlaySeq(userIn);
 
                     if (checkSeq(player1.getGamePlaySeq())){
                         showLines();
                         System.out.println("Game Over!!!");
-                        System.out.println("Player 1 Wins!!!");
+                        System.out.println("Player 1 Won!!!");
                         break;
                     }
                 }
 
                 //------------------------------------------------------------------------------------------------------
+
+
                 showLines();
+
                 System.out.println("Player2:");
 
-                userIn = player1.autoPlay(stringArrayList);
+                userIn = player2.autoPlay(stringArrayList);
                 System.out.println(userIn);
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player2.getCharacter());
+                if (!runTimeData.ifBlockUnoccupied(ui, userIn)){
+                    System.out.println("Block Taken!");
+                    while (!runTimeData.ifBlockUnoccupied(ui, userIn)){
+                        showLines();
+                        System.out.println("Player2:");
+                        userIn = player1.autoPlay(stringArrayList);
+                        System.out.println(userIn);
+                    }
+
+                } else {
+                    runTimeData.takeSquare(ui, userIn, player2.getCharacter());
 
                     player2.setPlaySeq(userIn);
 
                     if (checkSeq(player2.getGamePlaySeq())){
                         showLines();
                         System.out.println("Game Over!!!");
-                        System.out.println("Player 2 Wins!!!");
+                        System.out.println("Player 2 Won!!!");
                         break;
                     }
                 }
@@ -118,6 +138,7 @@ public class TicTacToe {
 
 
         } else if (userIn.equalsIgnoreCase("2")) {
+
             System.out.println("Launching multi player...");
             char p1Char = 'X', p2Char = 'O';
             Player player1 = new Player(p1Char);
@@ -127,41 +148,59 @@ public class TicTacToe {
             while (runTimeData.getOccupiedSquares().size() < 9){
 
                 showLines();
-                List<String> occupiedSquares = runTimeData.getOccupiedSquares();
+
                 System.out.println("Player1:");
                 userIn = scanner.nextLine();
 
+                if (runTimeData.ifBlockUnoccupied(ui, userIn)){
+                    System.out.println("Block Taken!");
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player1.getCharacter());
+                    while (runTimeData.ifBlockUnoccupied(ui, userIn)){
+                        showLines();
+                        System.out.println("Player1:");
+                        userIn = scanner.nextLine();
+                    }
+
+                } else {
+
+                    runTimeData.takeSquare(ui, userIn, player1.getCharacter());
+
                     player1.setPlaySeq(userIn);
 
                     if (checkSeq(player1.getGamePlaySeq())){
                         showLines();
                         System.out.println("Game Over!!!");
-                        System.out.println("Player 1 Wins!!!");
+                        System.out.println("Player 1 Won!!!");
                         break;
                     }
                 }
 
 
 
-                //---------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------------
                 showLines();
-                System.out.println("Player2: ");
+
+                System.out.println("Player2:");
                 userIn = scanner.nextLine();
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player2.getCharacter());
+                if (runTimeData.ifBlockUnoccupied(ui, userIn)){
+                    showLines();
+                    System.out.println("Block Taken!");
+
+                    while (runTimeData.ifBlockUnoccupied(ui, userIn)){
+                        System.out.println("Player2:");
+                        userIn = scanner.nextLine();
+                    }
+
+                } else {
+                    runTimeData.takeSquare(ui, userIn, player2.getCharacter());
 
                     player2.setPlaySeq(userIn);
 
                     if (checkSeq(player2.getGamePlaySeq())){
                         showLines();
                         System.out.println("Game Over!!!");
-                        System.out.println("Player 2 Wins!!!");
+                        System.out.println("Player 2 Won!!!");
                         break;
                     }
                 }

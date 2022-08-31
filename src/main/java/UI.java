@@ -137,43 +137,6 @@ public class UI {
     }
 
 
-    /**
-     * This function checks if the attempted block is occupied by a player or not
-     *
-     * @param attemptedBlock The block that the player is attempting to place their marker in.
-     * @return A boolean value.
-     */
-    public boolean getOccBlock(String attemptedBlock) {
 
-        if (attemptedBlock.equalsIgnoreCase("1")) {
-            return (uiLines.get(1).substring(2, 3).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("2")) {
-            return (uiLines.get(1).substring(8, 9).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("3")) {
-            return (uiLines.get(1).substring(14, 15).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("4")) {
-            return (uiLines.get(3).substring(2, 3).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("5")) {
-            return (uiLines.get(3).substring(8, 9).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("6")) {
-            return (uiLines.get(1).substring(14, 15).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("7")) {
-            return (uiLines.get(1).substring(2, 3).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("8")) {
-            return (uiLines.get(3).substring(8, 9).equalsIgnoreCase(" "));
-
-        } else if (attemptedBlock.equalsIgnoreCase("9")) {
-            return (uiLines.get(1).substring(14, 15).equalsIgnoreCase(" "));
-        }
-
-        return false;
-    }
 
 }
