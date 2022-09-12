@@ -7,7 +7,9 @@ public class Player {
     char character; //indicating (X / O) the chararcter to be used during gameplay
     ArrayList<String> gamePlaySeq;
 
+
     public Player(String playerName, char character){
+
         this.playerName = playerName;
         this.character = character;
         gamePlaySeq = new ArrayList<>();
@@ -20,14 +22,12 @@ public class Player {
     }
 
 
-    public ArrayList<String> getGamePlaySeq() {
-        return gamePlaySeq;
-    }
+    public ArrayList<String> getGamePlaySeq() { return gamePlaySeq; }
 
 
-    public String autoPlay(ArrayList<String> availableSquares){
+    public String autoPlay(ArrayList<String> Squares){
         // this is a method to be used by computer on single player
-        return getRandom(availableSquares);
+        return getRandom(Squares);
 
     }
 
@@ -42,7 +42,9 @@ public class Player {
         return list.get(rand.nextInt(list.size() - 1 + 1));
     }
 
+
     public String getPlayerName() {
         return playerName;
     }
+
 }

@@ -60,6 +60,12 @@ public class TicTacToe {
             return true;
         } else if (charSeq.contains("2") && charSeq.contains("5") && charSeq.contains("8")) {
             return true;
+        } else if (charSeq.contains("4") && charSeq.contains("5") && charSeq.contains("6")) {
+            return true;
+        }else if (charSeq.contains("3") && charSeq.contains("5") && charSeq.contains("7")) {
+            return true;
+        } else if (charSeq.contains("7") && charSeq.contains("8") && charSeq.contains("9")) {
+            return true;
         } else return charSeq.contains("3") && charSeq.contains("6") && charSeq.contains("9");
 
     }
@@ -101,7 +107,7 @@ public class TicTacToe {
                 runTimeData.takeSquare(ui, userIn, player1.getCharacter());
                 player1.setPlaySeq(userIn);
 
-                if (winnerIs(player1)){
+                if (winnerIs(player1)) {
                     showLines();
                     System.out.println("Game Over!!!");
                     System.out.println(player1.getPlayerName() + " Won!!!");
@@ -206,11 +212,8 @@ public class TicTacToe {
                     System.out.println(player2.getPlayerName() + " Won!!!");
                     break;
                 }
-
             }
-
         }
-
     }
 
 
@@ -224,14 +227,13 @@ public class TicTacToe {
                 "Select 1 or 2...");
 
         String userIn = scanner.nextLine();
+        boolean valid = userIn.equals("1") || userIn.equals("2");
 
-       boolean valid = userIn.equals("1") || userIn.equals("2");
-
-       while (!valid){
+        while (!valid){
            System.out.println("Choose only between 1 and 2");
            userIn = scanner.nextLine();
            valid = userIn.equals("1") || userIn.equals("2");
-       }
+        }
 
         new TicTacToe().play(userIn);
 
