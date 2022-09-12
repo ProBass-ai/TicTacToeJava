@@ -65,10 +65,15 @@ public class TicTacToe {
     }
 
 
+    /**
+     * The function takes in a string as a parameter and checks if it is equal to "1" or "2" and if it is, it will launch
+     * the game in single player or multiplayer mode respectively
+     *
+     * @param gameType 1 for single player, 2 for multi player
+     */
     public void play(String gameType){
 
         String userIn;
-
 
         if (gameType.equalsIgnoreCase("1")){
 
@@ -78,7 +83,7 @@ public class TicTacToe {
             Player player2 = new Player("Player 2", p2Char);
 
             // start game here
-            while ( true ){
+            while (true){
 
                 if (runTimeData.getOccupiedSquares().size() == 9) break;
 
@@ -219,6 +224,14 @@ public class TicTacToe {
                 "Select 1 or 2...");
 
         String userIn = scanner.nextLine();
+
+       boolean valid = userIn.equals("1") || userIn.equals("2");
+
+       while (!valid){
+           System.out.println("Choose only between 1 and 2");
+           userIn = scanner.nextLine();
+           valid = userIn.equals("1") || userIn.equals("2");
+       }
 
         new TicTacToe().play(userIn);
 
