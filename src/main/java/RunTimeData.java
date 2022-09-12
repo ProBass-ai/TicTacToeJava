@@ -7,12 +7,17 @@ public class RunTimeData {
     ArrayList<String> occupiedSquares = new ArrayList<>();
 
 
-    public void takeSquare(String square){
+    public void takeSquare(UI ui, String square, char Char){
         occupiedSquares.add(square);
+        ui.editUILines(square, Char);
     }
 
     public ArrayList<String> getOccupiedSquares() {
         return occupiedSquares;
+    }
+
+    public boolean ifBlockOccupied(String attemptedBlock){
+        return occupiedSquares.contains(attemptedBlock);
     }
 
 

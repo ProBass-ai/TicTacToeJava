@@ -26,6 +26,15 @@ public class TicTacToe {
     }
 
 
+    public boolean winnerIs(Player playerObject){
+        try {
+            return checkSeq(playerObject.getGamePlaySeq());
+        } catch (NullPointerException nullPointerException){
+            return false;
+        }
+    }
+
+
     public static void showLines(){
         ArrayList<String> lines = ui.getUiLines();
         System.out.println("Current board:");
@@ -51,131 +60,182 @@ public class TicTacToe {
             return true;
         } else if (charSeq.contains("2") && charSeq.contains("5") && charSeq.contains("8")) {
             return true;
+        } else if (charSeq.contains("4") && charSeq.contains("5") && charSeq.contains("6")) {
+            return true;
+        }else if (charSeq.contains("3") && charSeq.contains("5") && charSeq.contains("7")) {
+            return true;
+        } else if (charSeq.contains("7") && charSeq.contains("8") && charSeq.contains("9")) {
+            return true;
         } else return charSeq.contains("3") && charSeq.contains("6") && charSeq.contains("9");
 
     }
 
 
-    public void play(){
-        System.out.println("Welcome to TicTacToe!!!");
-        System.out.println("1. Single or, 2. Multi-player?");
-        System.out.println("Select 1 or 2...");
-        String userIn = scanner.nextLine();
+    /**
+     * The function takes in a string as a parameter and checks if it is equal to "1" or "2" and if it is, it will launch
+     * the game in single player or multiplayer mode respectively
+     *
+     * @param gameType 1 for single player, 2 for multi player
+     */
+    public void play(String gameType){
 
+        String userIn;
 
-        if (userIn.equalsIgnoreCase("1")){
+        if (gameType.equalsIgnoreCase("1")){
+
             System.out.println("Launching single player...");
             char p1Char = 'X', p2Char = 'O';
-            Player player1 = new Player(p1Char);
-            Player player2 = new Player(p2Char);
+            Player player1 = new Player("Player 1", p1Char);
+            Player player2 = new Player("Player 2", p2Char);
 
             // start game here
-            while (runTimeData.getOccupiedSquares().size() < 9){
+            while (true){
+
+                if (runTimeData.getOccupiedSquares().size() == 9) break;
 
                 showLines();
-                List<String> occupiedSquares = runTimeData.getOccupiedSquares();
                 System.out.println("Player1:");
                 userIn = scanner.nextLine();
 
+                while (runTimeData.ifBlockOccupied(userIn)) {
+                    System.out.println("Block Taken!");
+                    showLines();
+                    System.out.println("Player1:");
+                    userIn = scanner.nextLine();
+                }
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player1.getCharacter());
-                    player1.setPlaySeq(userIn);
+                runTimeData.takeSquare(ui, userIn, player1.getCharacter());
+                player1.setPlaySeq(userIn);
 
-                    if (checkSeq(player1.getGamePlaySeq())){
-                        showLines();
-                        System.out.println("Game Over!!!");
-                        System.out.println("Player 1 Wins!!!");
-                        break;
-                    }
+                if (winnerIs(player1)) {
+                    showLines();
+                    System.out.println("Game Over!!!");
+                    System.out.println(player1.getPlayerName() + " Won!!!");
+                    break;
                 }
 
                 //------------------------------------------------------------------------------------------------------
+                if (runTimeData.getOccupiedSquares().size() == 9) break;
+
                 showLines();
+
                 System.out.println("Player2:");
 
-                userIn = player1.autoPlay(stringArrayList);
+                userIn = player2.autoPlay(stringArrayList);
                 System.out.println(userIn);
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player2.getCharacter());
 
-                    player2.setPlaySeq(userIn);
-
-                    if (checkSeq(player2.getGamePlaySeq())){
-                        showLines();
-                        System.out.println("Game Over!!!");
-                        System.out.println("Player 2 Wins!!!");
-                        break;
-                    }
+                while (runTimeData.ifBlockOccupied(userIn)){
+                    System.out.println("Block Taken!");
+                    showLines();
+                    System.out.println("Player2:");
+                    userIn = player2.autoPlay(stringArrayList);
+                    System.out.println(userIn);
                 }
 
 
+                runTimeData.takeSquare(ui, userIn, player2.getCharacter());
+                player2.setPlaySeq(userIn);
+
+
+                if (winnerIs(player2)) {
+                    showLines();
+                    System.out.println("Game Over!!!");
+                    System.out.println(player2.getPlayerName() + " Won!!!");
+                    break;
+                }
 
             }
 
 
-        } else if (userIn.equalsIgnoreCase("2")) {
+        } else if (gameType.equalsIgnoreCase("2")) {
+
             System.out.println("Launching multi player...");
+
             char p1Char = 'X', p2Char = 'O';
-            Player player1 = new Player(p1Char);
-            Player player2 = new Player(p2Char);
+            Player player1 = new Player("Player 1", p1Char);
+            Player player2 = new Player("Player 2", p2Char);
 
             // start game here
-            while (runTimeData.getOccupiedSquares().size() < 9){
+            while ( true ){
+
+                if (runTimeData.getOccupiedSquares().size() == 9) break;
 
                 showLines();
-                List<String> occupiedSquares = runTimeData.getOccupiedSquares();
+
                 System.out.println("Player1:");
                 userIn = scanner.nextLine();
 
-
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player1.getCharacter());
-                    player1.setPlaySeq(userIn);
-
-                    if (checkSeq(player1.getGamePlaySeq())){
+                if (runTimeData.ifBlockOccupied(userIn)){
+                    while (runTimeData.ifBlockOccupied(userIn)){
+                        System.out.println("Block Taken!");
                         showLines();
-                        System.out.println("Game Over!!!");
-                        System.out.println("Player 1 Wins!!!");
-                        break;
+                        System.out.println("Player1:");
+                        userIn = scanner.nextLine();
                     }
+                }
+
+                runTimeData.takeSquare(ui, userIn, player1.getCharacter());
+                player1.setPlaySeq(userIn);
+
+                if (winnerIs(player1)){
+                    showLines();
+                    System.out.println("Game Over!!!");
+                    System.out.println(player1.getPlayerName() + " Won!!!");
+                    break;
                 }
 
 
 
-                //---------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------------
+                if (runTimeData.getOccupiedSquares().size() == 9) break;
                 showLines();
-                System.out.println("Player2: ");
+
+                System.out.println("Player2:");
                 userIn = scanner.nextLine();
 
-                if (!occupiedSquares.contains(userIn)){
-                    runTimeData.takeSquare(userIn);
-                    ui.editUILines(userIn, player2.getCharacter());
-
-                    player2.setPlaySeq(userIn);
-
-                    if (checkSeq(player2.getGamePlaySeq())){
+                if (runTimeData.ifBlockOccupied(userIn)){
+                    while (runTimeData.ifBlockOccupied(userIn)){
+                        System.out.println("Block Taken!");
                         showLines();
-                        System.out.println("Game Over!!!");
-                        System.out.println("Player 2 Wins!!!");
-                        break;
+                        System.out.println("Player2:");
+                        userIn = scanner.nextLine();
                     }
+
                 }
+                runTimeData.takeSquare(ui, userIn, player2.getCharacter());
+                player2.setPlaySeq(userIn);
 
+                if (winnerIs(player2)){
+                    showLines();
+                    System.out.println("Game Over!!!");
+                    System.out.println(player2.getPlayerName() + " Won!!!");
+                    break;
+                }
             }
-
         }
-
     }
+
 
 
     public static void main(String[] args) {
 
-        new TicTacToe().play();
+        scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to TicTacToe!!!\n" +
+                "1. Single or, 2. Multi-player?\n" +
+                "Select 1 or 2...");
+
+        String userIn = scanner.nextLine();
+        boolean valid = userIn.equals("1") || userIn.equals("2");
+
+        while (!valid){
+           System.out.println("Choose only between 1 and 2");
+           userIn = scanner.nextLine();
+           valid = userIn.equals("1") || userIn.equals("2");
+        }
+
+        new TicTacToe().play(userIn);
 
     }
 
