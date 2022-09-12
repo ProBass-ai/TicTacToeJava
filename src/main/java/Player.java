@@ -2,11 +2,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
+
+    String playerName;
     char character; //indicating (X / O) the chararcter to be used during gameplay
     ArrayList<String> gamePlaySeq;
 
-    public Player(char character){
-
+    public Player(String playerName, char character){
+        this.playerName = playerName;
         this.character = character;
         gamePlaySeq = new ArrayList<>();
 
@@ -40,4 +42,7 @@ public class Player {
         return list.get(rand.nextInt(list.size() - 1 + 1));
     }
 
+    public String getPlayerName() {
+        return playerName;
+    }
 }

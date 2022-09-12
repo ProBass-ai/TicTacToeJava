@@ -26,6 +26,15 @@ public class TicTacToe {
     }
 
 
+    public boolean winnerIs(Player playerObject){
+        try {
+            return checkSeq(playerObject.getGamePlaySeq());
+        } catch (NullPointerException nullPointerException){
+            return false;
+        }
+    }
+
+
     public static void showLines(){
         ArrayList<String> lines = ui.getUiLines();
         System.out.println("Current board:");
@@ -56,19 +65,17 @@ public class TicTacToe {
     }
 
 
-    public void play(){
+    public void play(String gameType){
 
-        System.out.println("Welcome to TicTacToe!!!");
-        System.out.println("1. Single or, 2. Multi-player?");
-        System.out.println("Select 1 or 2...");
-        String userIn = scanner.nextLine();
+        String userIn;
 
 
-        if (userIn.equalsIgnoreCase("1")){
+        if (gameType.equalsIgnoreCase("1")){
+
             System.out.println("Launching single player...");
             char p1Char = 'X', p2Char = 'O';
-            Player player1 = new Player(p1Char);
-            Player player2 = new Player(p2Char);
+            Player player1 = new Player("Player 1", p1Char);
+            Player player2 = new Player("Player 2", p2Char);
 
             // start game here
             while ( true ){
@@ -79,22 +86,20 @@ public class TicTacToe {
                 System.out.println("Player1:");
                 userIn = scanner.nextLine();
 
-                if (runTimeData.ifBlockOccupied(userIn)){
-                    while (runTimeData.ifBlockOccupied(userIn)){
-                        System.out.println("Block Taken!");
-                        showLines();
-                        System.out.println("Player1:");
-                        userIn = scanner.nextLine();
-                    }
-
+                while (runTimeData.ifBlockOccupied(userIn)) {
+                    System.out.println("Block Taken!");
+                    showLines();
+                    System.out.println("Player1:");
+                    userIn = scanner.nextLine();
                 }
+
                 runTimeData.takeSquare(ui, userIn, player1.getCharacter());
                 player1.setPlaySeq(userIn);
 
-                if (checkSeq(player1.getGamePlaySeq())){
+                if (winnerIs(player1)){
                     showLines();
                     System.out.println("Game Over!!!");
-                    System.out.println("Player 1 Won!!!");
+                    System.out.println(player1.getPlayerName() + " Won!!!");
                     break;
                 }
 
@@ -108,37 +113,37 @@ public class TicTacToe {
                 userIn = player2.autoPlay(stringArrayList);
                 System.out.println(userIn);
 
-                if (runTimeData.ifBlockOccupied(userIn)){
-                    while (runTimeData.ifBlockOccupied(userIn)){
-                        System.out.println("Block Taken!");
-                        showLines();
-                        System.out.println("Player2:");
-                        userIn = player2.autoPlay(stringArrayList);
-                        System.out.println(userIn);
-                    }
 
+                while (runTimeData.ifBlockOccupied(userIn)){
+                    System.out.println("Block Taken!");
+                    showLines();
+                    System.out.println("Player2:");
+                    userIn = player2.autoPlay(stringArrayList);
+                    System.out.println(userIn);
                 }
+
 
                 runTimeData.takeSquare(ui, userIn, player2.getCharacter());
                 player2.setPlaySeq(userIn);
 
-                if (checkSeq(player2.getGamePlaySeq())){
+
+                if (winnerIs(player2)) {
                     showLines();
                     System.out.println("Game Over!!!");
-                    System.out.println("Player 2 Won!!!");
+                    System.out.println(player2.getPlayerName() + " Won!!!");
                     break;
                 }
 
             }
 
 
-        } else if (userIn.equalsIgnoreCase("2")) {
+        } else if (gameType.equalsIgnoreCase("2")) {
 
             System.out.println("Launching multi player...");
 
             char p1Char = 'X', p2Char = 'O';
-            Player player1 = new Player(p1Char);
-            Player player2 = new Player(p2Char);
+            Player player1 = new Player("Player 1", p1Char);
+            Player player2 = new Player("Player 2", p2Char);
 
             // start game here
             while ( true ){
@@ -162,10 +167,10 @@ public class TicTacToe {
                 runTimeData.takeSquare(ui, userIn, player1.getCharacter());
                 player1.setPlaySeq(userIn);
 
-                if (checkSeq(player1.getGamePlaySeq())){
+                if (winnerIs(player1)){
                     showLines();
                     System.out.println("Game Over!!!");
-                    System.out.println("Player 1 Won!!!");
+                    System.out.println(player1.getPlayerName() + " Won!!!");
                     break;
                 }
 
@@ -190,10 +195,10 @@ public class TicTacToe {
                 runTimeData.takeSquare(ui, userIn, player2.getCharacter());
                 player2.setPlaySeq(userIn);
 
-                if (checkSeq(player2.getGamePlaySeq())){
+                if (winnerIs(player2)){
                     showLines();
                     System.out.println("Game Over!!!");
-                    System.out.println("Player 2 Won!!!");
+                    System.out.println(player2.getPlayerName() + " Won!!!");
                     break;
                 }
 
@@ -204,9 +209,18 @@ public class TicTacToe {
     }
 
 
+
     public static void main(String[] args) {
 
-        new TicTacToe().play();
+        scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to TicTacToe!!!\n" +
+                "1. Single or, 2. Multi-player?\n" +
+                "Select 1 or 2...");
+
+        String userIn = scanner.nextLine();
+
+        new TicTacToe().play(userIn);
 
     }
 
