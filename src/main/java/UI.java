@@ -2,15 +2,21 @@
 import java.util.ArrayList;
 
 public class UI {
-    ArrayList<String> uiLines = new ArrayList<>();
+    ArrayList<String> uiLines;
 
     public UI(){
+        uiLines = new ArrayList<>();
+        boardInit();
+    }
+
+
+    public void boardInit(){
         uiLines.add("******************");
-        uiLines.add("*    **    **    *");// 2 8 14 - 1
+        uiLines.add("*     *     *    *");// 3 9 15 - 1
         uiLines.add("******************");
-        uiLines.add("*    **    **    *");// 2 8 14 - 3
+        uiLines.add("*     *     *    *");// 3 9 15 - 3
         uiLines.add("******************");
-        uiLines.add("*    **    **    *");// 2 8 14 - 5
+        uiLines.add("*     *     *    *");// 3 9 15 - 5
         uiLines.add("******************");
     }
 
@@ -39,7 +45,7 @@ public class UI {
             case ("1"): {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(1);
-                int index = 2;
+                int index = 3;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -52,7 +58,7 @@ public class UI {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(1);
 
-                int index = 8;
+                int index = 9;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -64,7 +70,7 @@ public class UI {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(1);
 
-                int index = 14;
+                int index = 15;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -75,7 +81,7 @@ public class UI {
             } case("4"): {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(3);
-                int index = 2;
+                int index = 3;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -87,7 +93,7 @@ public class UI {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(3);
 
-                int index = 8;
+                int index = 9;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -99,7 +105,7 @@ public class UI {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(3);
 
-                int index = 14;
+                int index = 15;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -110,7 +116,7 @@ public class UI {
             } case ("7"): {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(5);
-                int index = 2;
+                int index = 3;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -121,7 +127,7 @@ public class UI {
             } case ("8"): {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(5);
-                int index = 8;
+                int index = 9;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
@@ -132,7 +138,7 @@ public class UI {
             } case ("9"): {
                 // copy line from list // modify line and // replace line with modified line
                 currLine = getUiLines().get(5);
-                int index = 14;
+                int index = 15;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
