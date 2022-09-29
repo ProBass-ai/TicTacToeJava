@@ -26,6 +26,9 @@ public class TicTacToe {
         try {
             return checkSeq(playerObject.getPlaySeq());
         } catch (NullPointerException nullPointerException){
+            System.out.println("An internal error seems to have occured - Please try and restart the game");
+            System.out.println("If it happens again, please contact me@email.co.za");
+            System.exit(0);
             return false;
         }
     }
