@@ -10,13 +10,12 @@ public class Player {
     private final ArrayList<String> gamePlaySeq;
     private final boolean autoPlay;
 
-    private final ArrayList<String> stringArrayList;
-    private Scanner scanner;
+    private final ArrayList<String> validMovesList;
+    private final Scanner scanner;
 
 
 
-
-    public Player(String playerName, char character, boolean autoPlay){
+    public Player(String playerName, char character, boolean autoPlay) {
 
         this.playerName = playerName;
         this.character = character;
@@ -24,29 +23,35 @@ public class Player {
         this.autoPlay = autoPlay;
         String s = "1-2-3-4-5-6-7-8-9";
         String[] strings = s.split("-");
-        stringArrayList = new ArrayList<>(List.of(strings));
-        this.scanner = new Scanner(System.in);
+        validMovesList = new ArrayList<>(List.of(strings));
+        scanner = new Scanner(System.in);
 
     }
 
 
     public void setPlaySeq(String c){
+        //Player : "I played these moves"
         gamePlaySeq.add(c);
     }
 
-    public String play(){
+
+    public String playMove(){
         if (autoPlay){
-            return getRandom(stringArrayList);
+            return getRandom(validMovesList);
         } else {
-            return scanner.nextLine();
+
+            String move = scanner.nextLine();
+            while (!validMovesList.contains(move)) {
+                System.out.println("Invalid Move!\n");
+                move = scanner.nextLine();
+            }
+
+            return move;
         }
     }
 
 
-    public ArrayList<String> getGamePlaySeq() { return gamePlaySeq; }
-
-
-
+    public ArrayList<String> getPlaySeq() { return gamePlaySeq; }
 
 
     public char getCharacter(){

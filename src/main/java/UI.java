@@ -34,95 +34,114 @@ public class UI {
     public void editUILines(String blockNum, char character){
         String currLine;
         // get uiLine and replace it with new character
-        if (blockNum.equalsIgnoreCase("1")) {
-            // copy line from list // modify line and // replace line with modified line
-            currLine = getUiLines().get(1);
-            int index = 2;
+        switch (blockNum){
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+            case ("1"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(1);
+                int index = 2;
 
-            modifyGraph(1, currLine);
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-
-        } else if (blockNum.equalsIgnoreCase("2")) {
-            currLine = getUiLines().get(1);
-
-            int index = 8;
-
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
-
-            modifyGraph(1, currLine);
+                modifyGraph(1, currLine);
+                break;
 
 
-        } else if (blockNum.equalsIgnoreCase("3")) {
-            currLine = getUiLines().get(1);
+            } case ("2"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(1);
 
-            int index = 14;
+                int index = 8;
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            modifyGraph(1, currLine);
+                modifyGraph(1, currLine);
+                break;
 
+            } case("3"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(1);
 
-        } else if (blockNum.equalsIgnoreCase("4")) {
-            currLine = getUiLines().get(3);
-            int index = 2;
+                int index = 14;
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            modifyGraph(3, currLine);
+                modifyGraph(1, currLine);
+                break;
 
-        } else if (blockNum.equalsIgnoreCase("5")) {
-            currLine = getUiLines().get(3);
+            } case("4"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(3);
+                int index = 2;
 
-            int index = 8;
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                modifyGraph(3, currLine);
+                break;
 
-            modifyGraph(3, currLine);
+            } case("5"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(3);
 
-        } else if (blockNum.equalsIgnoreCase("6")) {
-            currLine = getUiLines().get(3);
+                int index = 8;
 
-            int index = 14;
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                modifyGraph(3, currLine);
+                break;
 
-            modifyGraph(3, currLine);
+            } case ("6"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(3);
 
-        } else if (blockNum.equalsIgnoreCase("7")) {
-            currLine = getUiLines().get(5);
-            int index = 2;
+                int index = 14;
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            modifyGraph(5 ,currLine);
+                modifyGraph(3, currLine);
+                break;
 
-        } else if (blockNum.equalsIgnoreCase("8")) {
-            currLine = getUiLines().get(5);
-            int index = 8;
+            } case ("7"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(5);
+                int index = 2;
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            modifyGraph(5, currLine);
+                modifyGraph(5 ,currLine);
+                break;
 
-        } else if (blockNum.equalsIgnoreCase("9")) {
-            currLine = getUiLines().get(5);
-            int index = 14;
+            } case ("8"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(5);
+                int index = 8;
 
-            currLine = currLine.substring(0, index) + character
-                    + currLine.substring(index + 1);
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
 
-            modifyGraph(5, currLine);
+                modifyGraph(5, currLine);
+                break;
+
+            } case ("9"): {
+                // copy line from list // modify line and // replace line with modified line
+                currLine = getUiLines().get(5);
+                int index = 14;
+
+                currLine = currLine.substring(0, index) + character
+                        + currLine.substring(index + 1);
+
+                modifyGraph(5, currLine);
+                break;
+            }
         }
+
 
     }
 

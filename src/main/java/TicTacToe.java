@@ -8,7 +8,6 @@ public class TicTacToe {
     static Scanner scanner;
     static RunTimeData runTimeData;
     static UI ui;
-    ArrayList<String> stringArrayList;
     String status;
 
 
@@ -25,7 +24,7 @@ public class TicTacToe {
 
     public boolean winnerIs(Player playerObject){
         try {
-            return checkSeq(playerObject.getGamePlaySeq());
+            return checkSeq(playerObject.getPlaySeq());
         } catch (NullPointerException nullPointerException){
             return false;
         }
@@ -100,85 +99,64 @@ public class TicTacToe {
      *
      * @param gameType 1 for single player, 2 for multi player
      */
-    public void play(String gameType){
+    public void play(String gameType) {
 
-        String userIn;
-
+        String playerMove;
+        Player player1;
+        Player player2;
+        char p1Char = 'X', p2Char = 'O';
         ArrayList<Player> playerArrayList = new ArrayList<>();
 
-        if (gameType.equals("1")){
+        if (gameType.equals("1")) {
 
             System.out.println("Launching single player...");
-            char p1Char = 'X', p2Char = 'O';
-            Player player1 = new Player("Player 1", p1Char, false);
-            Player player2 = new Player("Player 2", p2Char, true);
-            playerArrayList.add(player1); playerArrayList.add(player2);
+            player1 = new Player("Player 1", p1Char, false);
+            player2 = new Player("Player 2", p2Char, true);
 
 
-            // start game here
-            while (true) {
-                Player player = playerArrayList.get(0);
-                showBoard();
-                System.out.println( player.getPlayerName() + " :");
-                userIn = player.play();
-
-                while (runTimeData.ifBlockOccupied(userIn)) {
-                    System.out.println("Block Taken!");
-                    showBoard();
-                    System.out.println(player.getPlayerName() + " :");
-                    userIn = player.play();
-                }
-
-                runTimeData.takeSquare(ui, userIn, player.getCharacter());
-                player.setPlaySeq(userIn);
-
-                if (ifGameIsFinished(runTimeData.getOccupiedSquares(), player)) {
-                    showBoard();
-                    System.out.println(status);
-                    break;
-                }
-
-                Collections.reverse(playerArrayList); // this is how players take turns
-
-            }
-
-
-
-        } else if (gameType.equals("2")) {
+        } else {
 
             System.out.println("Launching multi player...");
-            char p1Char = 'X', p2Char = 'O';
-            Player player1 = new Player("Player 1", p1Char, false);
-            Player player2 = new Player("Player 2", p2Char, false);
-            playerArrayList.add(player1); playerArrayList.add(player2);
+            player1 = new Player("Player 1", p1Char, false);
+            player2 = new Player("Player 2", p2Char, false);
 
-            // start game here
-            while (true) {
-                Player player = playerArrayList.get(0);
-                showBoard();
-                System.out.println( player.getPlayerName() + " :");
-                userIn = player.play();
 
-                while (runTimeData.ifBlockOccupied(userIn)) {
-                    System.out.println("Block Taken!");
-                    showBoard();
-                    System.out.println(player.getPlayerName() + " :");
-                    userIn = player.play();
-                }
-
-                runTimeData.takeSquare(ui, userIn, player.getCharacter());
-                player.setPlaySeq(userIn);
-
-                if (ifGameIsFinished(runTimeData.getOccupiedSquares(), player)) {
-                    showBoard();
-                    System.out.println(status);
-                    break;
-                }
-
-                Collections.reverse(playerArrayList); // this is how players take turns
-
-            }
         }
+
+        playerArrayList.add(player1);
+        playerArrayList.add(player2);
+
+        // start game here
+        while (true) {
+
+            Player player = playerArrayList.get(0);
+            showBoard();
+            System.out.println(player.getPlayerName() + " :");
+            playerMove = player.playMove();
+
+            while (runTimeData.ifBlockOccupied(playerMove)) {
+                System.out.println("Block Taken!");
+                showBoard();
+                System.out.println(player.getPlayerName() + " :");
+                playerMove = player.playMove();
+            }
+
+            //update game progress
+            runTimeData.takeSquare(playerMove);
+            ui.editUILines(playerMove, player.getCharacter());
+            player.setPlaySeq(playerMove);
+
+            //validate
+            if (ifGameIsFinished(runTimeData.getOccupiedSquares(), player)) {
+                showBoard();
+                System.out.println(status);
+                break;
+            }
+
+            Collections.reverse(playerArrayList); // this is how players take turns
+
+        }
+
     }
 
 
@@ -194,7 +172,7 @@ public class TicTacToe {
         String userIn = scanner.nextLine();
         boolean valid = userIn.equals("1") || userIn.equals("2");
 
-        while (!valid){
+        while (!valid) {
            System.out.println("Choose only between 1 and 2");
            userIn = scanner.nextLine();
            valid = userIn.equals("1") || userIn.equals("2");
