@@ -1,5 +1,6 @@
-import org.jetbrains.annotations.NotNull;
 
+
+import java.io.IOException;
 import java.util.*;
 
 public class TicTacToe {
@@ -68,6 +69,16 @@ public class TicTacToe {
     }
 
 
+//    public static void clearScreen(){
+//
+//        //            if (System.getProperty("os.name").contains("Windows"))
+////                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+////            else
+////                Runtime.getRuntime().exec("clear");
+//        System.out.print("\f");
+//    }
+
+
     /**
      * If the ArrayList contains any of the following sequences, return true: 1,2,3; 1,4,7; 1,5,9; 2,5,8; 4,5,6; 3,5,7;
      * 7,8,9; 3,6,9
@@ -75,7 +86,7 @@ public class TicTacToe {
      * @param charSeq This is the ArrayList that contains the sequence of characters that the user has entered.
      * @return A boolean value.
      */
-    private static boolean checkSeq(@NotNull ArrayList<String> charSeq){
+    private static boolean checkSeq(ArrayList<String> charSeq){
 
         if (charSeq.contains("1") && charSeq.contains("2") && charSeq.contains("3")){
             return true;
@@ -113,6 +124,7 @@ public class TicTacToe {
         if (gameType.equals("1")) {
 
             System.out.println("Launching single player...");
+            System.out.println("Insert the number of the block you want fill, starting from 1-9: ");
             player1 = new Player("Player 1", p1Char, false);
             player2 = new Player("Player 2", p2Char, true);
 
@@ -120,6 +132,7 @@ public class TicTacToe {
         } else {
 
             System.out.println("Launching multi player...");
+            System.out.println("Insert the number of the block you want fill, starting from 1-9: ");
             player1 = new Player("Player 1", p1Char, false);
             player2 = new Player("Player 2", p2Char, false);
 
