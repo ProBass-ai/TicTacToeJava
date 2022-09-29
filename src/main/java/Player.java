@@ -36,7 +36,8 @@ public class Player {
 
 
     public String playMove(){
-        if (autoPlay){
+
+        if (autoPlay) {
             return getRandom(validMovesList);
         } else {
 
