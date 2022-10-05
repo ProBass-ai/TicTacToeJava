@@ -11,13 +11,13 @@ public class UI {
 
 
     public void boardInit(){
-        uiLines.add("******************");
-        uiLines.add("*     *     *    *");// 3 9 15 - 1
-        uiLines.add("******************");
-        uiLines.add("*     *     *    *");// 3 9 15 - 3
-        uiLines.add("******************");
-        uiLines.add("*     *     *    *");// 3 9 15 - 5
-        uiLines.add("******************");
+        uiLines.add("*******************");
+        uiLines.add("*     *     *     *");// 3 9 15 - 1
+        uiLines.add("*******************");
+        uiLines.add("*     *     *     *");// 3 9 15 - 3
+        uiLines.add("*******************");
+        uiLines.add("*     *     *     *");// 3 9 15 - 5
+        uiLines.add("*******************");
     }
 
 
