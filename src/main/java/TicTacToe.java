@@ -105,6 +105,11 @@ public class TicTacToe {
         } else return charSeq.contains("3") && charSeq.contains("6") && charSeq.contains("9");
 
     }
+    
+    
+    public void changePlayer(ArrayList<Player> playerList){
+        Collections.reverse(playerList);
+    }
 
 
     /**
@@ -169,7 +174,7 @@ public class TicTacToe {
                 break;
             }
 
-            Collections.reverse(playerArrayList); // this is how players take turns
+            changePlayer(playerArrayList); // this is how players take turns
 
         }
 
