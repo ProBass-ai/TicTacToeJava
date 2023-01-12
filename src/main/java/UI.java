@@ -26,7 +26,7 @@ public class UI {
      *
      * @return An ArrayList of Strings
      */
-    public ArrayList<String> getUiLines() {
+    public ArrayList<String> getBoard() {
         return uiLines;
     }
 
@@ -37,113 +37,114 @@ public class UI {
      * @param blockNum the block number that the user wants to edit
      * @param character the character that the user has entered
      */
-    public void editUILines(String blockNum, char character){
+    public void editBoard(String blockNum, char character){
         String currLine;
         // get uiLine and replace it with new character
         switch (blockNum){
 
+            // copy line from list // modify line and // replace line with modified line
             case ("1"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(1);
+
+                currLine = getBoard().get(1);
                 int index = 3;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(1, currLine);
+                modifyBoard(1, currLine);
                 break;
 
 
             } case ("2"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(1);
+
+                currLine = getBoard().get(1);
 
                 int index = 9;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(1, currLine);
+                modifyBoard(1, currLine);
                 break;
 
             } case("3"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(1);
+
+                currLine = getBoard().get(1);
 
                 int index = 15;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(1, currLine);
+                modifyBoard(1, currLine);
                 break;
 
             } case("4"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(3);
+
+                currLine = getBoard().get(3);
                 int index = 3;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(3, currLine);
+                modifyBoard(3, currLine);
                 break;
 
             } case("5"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(3);
+
+                currLine = getBoard().get(3);
 
                 int index = 9;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(3, currLine);
+                modifyBoard(3, currLine);
                 break;
 
             } case ("6"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(3);
+
+                currLine = getBoard().get(3);
 
                 int index = 15;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(3, currLine);
+                modifyBoard(3, currLine);
                 break;
 
             } case ("7"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(5);
+
+                currLine = getBoard().get(5);
                 int index = 3;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(5 ,currLine);
+                modifyBoard(5 ,currLine);
                 break;
 
             } case ("8"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(5);
+
+                currLine = getBoard().get(5);
                 int index = 9;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(5, currLine);
+                modifyBoard(5, currLine);
                 break;
 
             } case ("9"): {
-                // copy line from list // modify line and // replace line with modified line
-                currLine = getUiLines().get(5);
+
+                currLine = getBoard().get(5);
                 int index = 15;
 
                 currLine = currLine.substring(0, index) + character
                         + currLine.substring(index + 1);
 
-                modifyGraph(5, currLine);
+                modifyBoard(5, currLine);
                 break;
             }
         }
@@ -157,7 +158,7 @@ public class UI {
      *
      * @param line The line to be modified.
      */
-    public void modifyGraph(int atLine, String line){
+    public void modifyBoard(int atLine, String line){
         this.uiLines.set(atLine, line);
     }
 

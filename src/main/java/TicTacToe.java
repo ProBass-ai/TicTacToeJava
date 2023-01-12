@@ -1,6 +1,5 @@
 
 
-import java.io.IOException;
 import java.util.*;
 
 public class TicTacToe {
@@ -10,6 +9,10 @@ public class TicTacToe {
     static RunTimeData runTimeData;
     static UI ui;
     String status;
+
+    private static final HashSet<String> winningSequences = new HashSet<>(
+            Arrays.asList("123", "147", "159", "258", "456", "357", "789", "369")
+    );
 
 
 
@@ -59,13 +62,21 @@ public class TicTacToe {
         return false;
     }
 
+    static String getBoard(){
+        ArrayList<String> board = ui.getBoard();
+        StringBuilder boardOut = new StringBuilder();
 
-    public static void showBoard() {
-        ArrayList<String> lines = ui.getUiLines();
-        System.out.println("Current board:");
-        for (String line: lines) {
-            System.out.println(line);
+        for (String line: board){
+            boardOut.append(line).append("\n");
         }
+
+        return boardOut.toString();
+    }
+
+
+    static void showBoard() {
+        System.out.println("Current board:");
+        System.out.println(getBoard());
     }
 
 
@@ -86,24 +97,13 @@ public class TicTacToe {
      * @param charSeq This is the ArrayList that contains the sequence of characters that the user has entered.
      * @return A boolean value.
      */
-    private static boolean checkSeq(ArrayList<String> charSeq){
-
-        if (charSeq.contains("1") && charSeq.contains("2") && charSeq.contains("3")){
-            return true;
-        } else if (charSeq.contains("1") && charSeq.contains("4") && charSeq.contains("7")) {
-            return true;
-        } else if (charSeq.contains("1") && charSeq.contains("5") && charSeq.contains("9")) {
-            return true;
-        } else if (charSeq.contains("2") && charSeq.contains("5") && charSeq.contains("8")) {
-            return true;
-        } else if (charSeq.contains("4") && charSeq.contains("5") && charSeq.contains("6")) {
-            return true;
-        }else if (charSeq.contains("3") && charSeq.contains("5") && charSeq.contains("7")) {
-            return true;
-        } else if (charSeq.contains("7") && charSeq.contains("8") && charSeq.contains("9")) {
-            return true;
-        } else return charSeq.contains("3") && charSeq.contains("6") && charSeq.contains("9");
-
+    private boolean checkSeq(ArrayList<String> charSeq) {
+        StringBuilder sb = new StringBuilder();
+        for(String s : charSeq){
+            sb.append(s);
+        }
+        String str = sb.toString();
+        return winningSequences.stream().anyMatch(str::contains);
     }
     
     
@@ -164,7 +164,7 @@ public class TicTacToe {
 
             //update game progress
             runTimeData.takeSquare(playerMove);
-            ui.editUILines(playerMove, player.getCharacter());
+            ui.editBoard(playerMove, player.getCharacter());
             player.setPlaySeq(playerMove);
 
             //validate
