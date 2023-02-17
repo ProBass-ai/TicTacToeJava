@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Player {
 
@@ -12,7 +11,11 @@ public class Player {
 
     private final ArrayList<String> validMovesList;
     private final Scanner scanner;
+    private String lastMove;
 
+    private final HashSet<String> winningSequences = new HashSet<>(
+            Arrays.asList("123", "147", "159", "258", "456", "357", "789", "369")
+    );
 
 
     public Player(String playerName, char character, boolean autoPlay) {
@@ -38,7 +41,7 @@ public class Player {
     public String playMove(){
 
         if (autoPlay) {
-            return getRandom(validMovesList);
+            return nextMoveAI();
         } else {
 
             String move = scanner.nextLine();
@@ -60,14 +63,51 @@ public class Player {
     }
 
 
-    public String getRandom(ArrayList<String> list) {
+    public String getRandom() {
         Random rand = new Random();
-        return list.get(rand.nextInt(list.size() - 1 + 1));
+        return validMovesList.get(rand.nextInt(
+                validMovesList.size() - 1 + 1)
+        );
     }
 
 
     public String getPlayerName() {
         return playerName;
+    }
+
+
+    public String nextMoveAI() {
+
+        String move;
+        if (gamePlaySeq.isEmpty()){
+            move = getRandom();
+            lastMove = move;
+            return move;
+        } else {
+            // consider the players current
+            // check if what our last move was and select another move other that it
+            if (gamePlaySeq.size() == 1){
+
+                String s1 = gamePlaySeq.get(0);// don't consider that move
+
+                ArrayList<String> containingS1 = getSequencesContainingChar(s1);
+
+                String sequence = containingS1.get(new Random().nextInt(containingS1.size() - 1));
+
+                char c = sequence.replace(Character.toString(s1.charAt(0)), "").charAt(0);
+
+                move = String.valueOf(c);
+                lastMove = move;
+                return move;
+            }
+        }
+        return "";
+    }
+
+    private ArrayList<String> getSequencesContainingChar(String c) {
+        return winningSequences.stream()
+                .filter(sequence -> sequence.contains(c))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
 }
