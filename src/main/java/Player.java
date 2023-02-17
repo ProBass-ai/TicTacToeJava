@@ -92,7 +92,7 @@ public class Player {
 
                 ArrayList<String> containingS1 = getSequencesContainingChar(s1);
 
-                String sequence = containingS1.get(new Random().nextInt(containingS1.size() - 1));
+                String sequence = containingS1.get(new Random().nextInt(containingS1.size()));
 
                 char c = sequence.replace(Character.toString(s1.charAt(0)), "").charAt(0);
 
@@ -100,6 +100,27 @@ public class Player {
                 lastMove = move;
                 return move;
             }
+
+            if (gamePlaySeq.size() == 2){
+                String s1 = gamePlaySeq.get(0);
+                String s2 = gamePlaySeq.get(1);
+
+                ArrayList<String> containingS1S2 = getSequencesContainingChars(s1, s2);
+
+                System.out.println(s1 + " " + s2);
+                System.out.println(containingS1S2.size());
+
+                String sequence = containingS1S2.get(new Random().nextInt(containingS1S2.size()));
+
+                char c = sequence.replace(Character.toString(s1.charAt(0)), "")
+                        .replace(Character.toString(s1.charAt(0)), "").charAt(0);
+
+                move = String.valueOf(c);
+                lastMove = move;
+                return move;
+
+            }
+
         }
         return "";
     }
@@ -107,6 +128,12 @@ public class Player {
     private ArrayList<String> getSequencesContainingChar(String c) {
         return winningSequences.stream()
                 .filter(sequence -> sequence.contains(c))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private ArrayList<String> getSequencesContainingChars(String c, String c1) {
+        return winningSequences.stream()
+                .filter(sequence -> sequence.contains(c) && sequence.contains(c1))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
