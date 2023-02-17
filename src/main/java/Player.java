@@ -95,7 +95,12 @@ public class Player {
 
                 char c = sequence.replace(Character.toString(s1.charAt(0)), "").charAt(0);
 
-                move = String.valueOf(c);
+                if (isValidThirdMove(c)){
+                    move = String.valueOf(c);
+                } else {
+                    move = _switch();
+                }
+
                 lastMove = move;
                 return move;
             }
@@ -116,11 +121,12 @@ public class Player {
 
                 if (isValidThirdMove(c)){
                     move = String.valueOf(c);
-                    lastMove = move;
-                    return move;
                 } else {
-                    return reset();
+                    move = _switch();
                 }
+
+                lastMove = move;
+                return move;
 
             }
 
@@ -128,11 +134,13 @@ public class Player {
         return "";
     }
 
+
     private ArrayList<String> getSequencesContainingChar(String c) {
         return winningSequences.stream()
                 .filter(sequence -> sequence.contains(c))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     private ArrayList<String> getSequencesContainingChars(String c, String c1) {
         return winningSequences.stream()
@@ -140,16 +148,19 @@ public class Player {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+
     private boolean isValidThirdMove(char thirdMove){
         String move = String.valueOf(thirdMove);
         return !occupiedSquares.contains(move);
     }
 
+
     public void updateOccupiedBlocks(ArrayList<String> occupiedSquares) {
         this.occupiedSquares = occupiedSquares;
     }
 
-    public String reset() {
+
+    public String _switch() {
 
         gamePlaySeq.clear();
         String move = getRandom();
