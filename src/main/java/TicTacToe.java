@@ -151,6 +151,7 @@ public class TicTacToe {
         while (true) {
 
             Player player = playerArrayList.get(0);
+            player.updateOccupiedBlocks(persistence.getOccupiedSquares());
             showBoard();
             System.out.println(player.getPlayerName() + " :");
             playerMove = player.playMove();

@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Player {
 
@@ -16,6 +15,7 @@ public class Player {
     private final HashSet<String> winningSequences = new HashSet<>(
             Arrays.asList("123", "147", "159", "258", "456", "357", "789", "369")
     );
+    private ArrayList<String> occupiedSquares;
 
 
     public Player(String playerName, char character, boolean autoPlay) {
@@ -84,8 +84,7 @@ public class Player {
             lastMove = move;
             return move;
         } else {
-            // consider the players current
-            // check if what our last move was and select another move other that it
+
             if (gamePlaySeq.size() == 1){
 
                 String s1 = gamePlaySeq.get(0);// don't consider that move
@@ -115,9 +114,13 @@ public class Player {
                 char c = sequence.replace(Character.toString(s1.charAt(0)), "")
                         .replace(Character.toString(s1.charAt(0)), "").charAt(0);
 
-                move = String.valueOf(c);
-                lastMove = move;
-                return move;
+                if (isValidThirdMove(c)){
+                    move = String.valueOf(c);
+                    lastMove = move;
+                    return move;
+                } else {
+                    return reset();
+                }
 
             }
 
@@ -135,6 +138,25 @@ public class Player {
         return winningSequences.stream()
                 .filter(sequence -> sequence.contains(c) && sequence.contains(c1))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private boolean isValidThirdMove(char thirdMove){
+        String move = String.valueOf(thirdMove);
+        return !occupiedSquares.contains(move);
+    }
+
+    public void updateOccupiedBlocks(ArrayList<String> occupiedSquares) {
+        this.occupiedSquares = occupiedSquares;
+    }
+
+    public String reset() {
+
+        gamePlaySeq.clear();
+        String move = getRandom();
+        while (occupiedSquares.contains(move)){
+            move = getRandom();
+        }
+        return move;
     }
 
 }
