@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class RunTimeData {
+public class Persistence {
 
     // this is so that a user does not occupy squares that
     // already occupied

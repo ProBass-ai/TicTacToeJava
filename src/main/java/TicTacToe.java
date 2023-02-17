@@ -6,7 +6,7 @@ public class TicTacToe {
     // input syntax 1
     // where '1' is there position of the character
     static Scanner scanner;
-    static RunTimeData runTimeData;
+    static Persistence persistence;
     static UI ui;
     String status;
 
@@ -20,7 +20,7 @@ public class TicTacToe {
     public TicTacToe(){
 
         scanner = new Scanner(System.in);
-        runTimeData = new RunTimeData();
+        persistence = new Persistence();
         ui = new UI();
 
     }
@@ -155,7 +155,7 @@ public class TicTacToe {
             System.out.println(player.getPlayerName() + " :");
             playerMove = player.playMove();
 
-            while (runTimeData.ifBlockOccupied(playerMove)) {
+            while (persistence.ifBlockOccupied(playerMove)) {
                 System.out.println("Block Taken!");
                 showBoard();
                 System.out.println(player.getPlayerName() + " :");
@@ -163,12 +163,12 @@ public class TicTacToe {
             }
 
             //update game progress
-            runTimeData.takeSquare(playerMove);
+            persistence.takeSquare(playerMove);
             ui.editBoard(playerMove, player.getCharacter());
             player.setPlaySeq(playerMove);
 
             //validate
-            if (ifGameIsFinished(runTimeData.getOccupiedSquares(), player)) {
+            if (ifGameIsFinished(persistence.getOccupiedSquares(), player)) {
                 showBoard();
                 System.out.println(status);
                 break;
