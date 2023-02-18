@@ -7,10 +7,11 @@ public class Player {
     private final char character; //indicating (X / O) the chararcter to be used during gameplay
     private final ArrayList<String> gamePlaySeq;
     private final boolean autoPlay;
-
     private final ArrayList<String> validMovesList;
     private final Scanner scanner;
     private String lastMove;
+    ArrayList<String> moves;
+    String currentGoal;
 
     private final HashSet<String> winningSequences = new HashSet<>(
             Arrays.asList("123", "147", "159", "258", "456", "357", "789", "369")
@@ -27,6 +28,7 @@ public class Player {
         String s = "1-2-3-4-5-6-7-8-9";
         String[] strings = s.split("-");
         validMovesList = new ArrayList<>(List.of(strings));
+        moves = new ArrayList<>();
         scanner = new Scanner(System.in);
 
     }
@@ -81,7 +83,7 @@ public class Player {
         String move;
         if (gamePlaySeq.isEmpty()){
             move = getRandom();
-            lastMove = move;
+            this.lastMove = move;
             return move;
         } else {
 
@@ -101,7 +103,7 @@ public class Player {
                     move = _switch();
                 }
 
-                lastMove = move;
+                this.lastMove = move;
                 return move;
             }
 
@@ -125,7 +127,7 @@ public class Player {
                     move = _switch();
                 }
 
-                lastMove = move;
+                this.lastMove = move;
                 return move;
 
             }
@@ -169,5 +171,34 @@ public class Player {
         }
         return move;
     }
+
+    public String trackWinningSeq(){
+        // store every move in the moves list
+        moves.add(lastMove);
+
+
+        // match make pairs of three to consider which might make the next win
+        // if list is of length 1 conider moving on
+        if (moves.size() == 1){
+            // move on
+        }
+
+        // if list is of length 2, check if a matching last move can be made
+        if (moves.size() == 2){
+            // see which other blocks are open and consider them based on how increase winnig chances
+        }
+
+        // if list is of length 3, generate all possible combinations and which combination has the best possible route
+        // do the same for 4 and 5
+        if (moves.size() > 2){
+            // make all possible combinations of the current moves
+            // use these combinations to predict what a better next move
+        }
+
+        // consider any one of those pairs as your next move
+        return "Suggested move";
+    }
+
+
 
 }
