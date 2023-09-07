@@ -2,22 +2,24 @@
 import java.util.ArrayList;
 
 public class UI {
-    ArrayList<String> uiLines;
+    private ArrayList<String> boardOutline;
+    private final String closedPath = "*******************";
+    private final String openPath = "*     *     *     *";
 
     public UI(){
-        uiLines = new ArrayList<>();
+        boardOutline = new ArrayList<>();
         boardInit();
     }
 
 
     public void boardInit(){
-        uiLines.add("*******************");
-        uiLines.add("*     *     *     *");// 3 9 15 - 1
-        uiLines.add("*******************");
-        uiLines.add("*     *     *     *");// 3 9 15 - 3
-        uiLines.add("*******************");
-        uiLines.add("*     *     *     *");// 3 9 15 - 5
-        uiLines.add("*******************");
+        boardOutline.add(closedPath);
+        boardOutline.add(openPath);// 3 9 15 - 1
+        boardOutline.add(closedPath);
+        boardOutline.add(openPath);// 3 9 15 - 3
+        boardOutline.add(closedPath);
+        boardOutline.add(openPath);// 3 9 15 - 5
+        boardOutline.add(closedPath);
     }
 
 
@@ -27,7 +29,7 @@ public class UI {
      * @return An ArrayList of Strings
      */
     public ArrayList<String> getBoard() {
-        return uiLines;
+        return boardOutline;
     }
 
 
@@ -159,7 +161,7 @@ public class UI {
      * @param line The line to be modified.
      */
     public void modifyBoard(int atLine, String line){
-        this.uiLines.set(atLine, line);
+        this.boardOutline.set(atLine, line);
     }
 
 }

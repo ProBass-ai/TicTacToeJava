@@ -6,16 +6,13 @@ public class Persistence {
     // already occupied
     ArrayList<String> occupiedSquares = new ArrayList<>();
 
-
     public void takeSquare(String square){
         occupiedSquares.add(square);
     }
 
-
     public ArrayList<String> getOccupiedSquares() {
         return occupiedSquares;
     }
-
 
     public boolean ifBlockOccupied(String attemptedBlock){
         return occupiedSquares.contains(attemptedBlock);
